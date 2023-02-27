@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+body {
+  font-family: sans-serif;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.topBar {
+  margin-top: 2%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

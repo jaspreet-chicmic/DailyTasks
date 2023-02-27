@@ -1,35 +1,46 @@
 import React, { useState } from "react";
+import { Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-function UserTable(props) {
+function UserTable({records, setRecords}) {
+
   return (
-    <div>
+    <div className="mt-4">
       <Table striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Username</th>
+            <th>Hero Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Age</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan={2}>Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
+        
+        {records.map((oneRecord, id)=>{
+          return (
+            <tr key={id}>
+            <td>
+              <Form.Check
+              inline
+              label={id}
+              name={`group ${id}`}
+              type="checkbox"
+              id={`inline-checkbox-${id}`}
+              />
+            </td>
+            <td>{oneRecord.userFName}</td>
+            <td>{oneRecord.userLName}</td>
+            <td>{oneRecord.userHeroName}</td>
+            <td>{oneRecord.userEmail}</td>
+            <td>{oneRecord.userGender}</td>
+            <td>{oneRecord.userAge}</td>
+            </tr>
+          );
+        })}
+
         </tbody>
       </Table>
     </div>

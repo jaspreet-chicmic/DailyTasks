@@ -7,7 +7,7 @@ import AddRecord from "./AddRecord";
 
 function TopBar() {
   const [show, setShow] = useState(false);
-  const [records, setRecords] = useState({});
+  const [records, setRecords] = useState([]);
   const handleShow = () => setShow(true);
 
   return (
@@ -36,6 +36,7 @@ function TopBar() {
           setRecords={setRecords}
         />
       )}
+      
       {Object.entries(records).length ? (
         <UserTable records={records} setRecords={setRecords} />
       ) : (

@@ -6,27 +6,55 @@ import { Form, Modal, Button } from "react-bootstrap";
 
 function AddRecord({ show, setShow, records, setRecords }) {
   const tempObj = {
-    id: 0,
-    Fname: "",
-    Lname: "",
-    heroName: "",
-    email: "",
-    gender: "M",
-    age: 20,
+    id: 1,
+    userFName: "",
+    userLName: "",
+    userHeroName: "",
+    userEmail: "",
+    userGender: "",
+    userAge: 0,
   };
   const [userDetails, setUserDetails] = useState(() => tempObj);
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const [errorBoolean, setErrorBoolean] = useState(false);
+  const [error, setError] = useState({
+    userFName: "",
+    userLName: "",
+    userHeroName: "",
+    userEmail: "",
+    userGender: "",
+    userAge: ""});
+  
+    const handleClose = () => setShow(false); //e.preventdefault to avoid refresh
+
+  //arrow over normal
+  // const checkValidation = () => {
+  //   const arrKeyVal = Object.entries(userDetails);
+  //   const filteredArr = arrKeyVal.filter(arr => {(arr[1]== "")})
+  //   console.log(filteredArr,arrKeyVal)
+  //   filteredArr.map(arr=>{
+  //     setError({...error, [arr[0]]:"Please enter a value"})
+  //     console.log(arr)
+  //   })
+  // }
+
+  function onSubmit(e){
+    e.preventDefault()
     setRecords([...records, userDetails]);
-    console.log(records[0]);
+    // checkValidation()
+    setUserDetails({});
     handleClose();
   };
-  const handleClose = () => setShow(false); //e.preventdefault to avoid refresh
+
+
   function handleChange(e) {
     const { name, value } = e.target;
     //key "": value, [key]
+    // (value) ? null: <></>
     setUserDetails({ ...userDetails, [name]: value });
+    
+    // userDetails
   }
+
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -38,15 +66,15 @@ function AddRecord({ show, setShow, records, setRecords }) {
             <Form.Group className="mb-3" controlId="Input1">
               <Form.Label className="">First Name</Form.Label>
               <Form.Control
-                type="name"
+                type="text"
                 name="userFName"
                 placeholder="Steve"
                 onChange={(e) => handleChange(e)}
                 autoFocus
-              />
+              />{error["userFName"] && <p>{error["userFName"]}</p>}
               <Form.Label>Last Name</Form.Label>
               <Form.Control
-                type="name"
+                type="text"
                 name="userLName"
                 placeholder="Rogers"
                 onChange={(e) => handleChange(e)}
@@ -54,7 +82,7 @@ function AddRecord({ show, setShow, records, setRecords }) {
               />
               <Form.Label>Hero Name</Form.Label>
               <Form.Control
-                type="name"
+                type="text"
                 name="userHeroName"
                 placeholder="Captain America"
                 onChange={(e) => handleChange(e)}
@@ -70,7 +98,7 @@ function AddRecord({ show, setShow, records, setRecords }) {
               />
               <Form.Label>Gender</Form.Label>
               <Form.Control
-                type="gender"
+                type="text"
                 name="userGender"
                 placeholder="M"
                 onChange={(e) => handleChange(e)}

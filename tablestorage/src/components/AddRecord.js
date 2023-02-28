@@ -6,8 +6,8 @@ import { Form, Modal, Button } from "react-bootstrap";
 
 function AddRecord({ show, setShow, records, setRecords }) {
   const tempObj = {
-    // id: (records.length && records.at(-1).id + 1) || 1,
-    id:,
+    id: (records.length && records.at(-1).id + 1) || 0,
+    // id:,
     userFName: "",
     userLName: "",
     userHeroName: "",
@@ -23,9 +23,10 @@ function AddRecord({ show, setShow, records, setRecords }) {
     userHeroName: "",
     userEmail: "",
     userGender: "",
-    userAge: ""});
-  
-    const handleClose = () => setShow(false); //e.preventdefault to avoid refresh
+    userAge: "",
+  });
+
+  const handleClose = () => setShow(false); //e.preventdefault to avoid refresh
 
   //arrow over normal
   // const checkValidation = () => {
@@ -38,21 +39,20 @@ function AddRecord({ show, setShow, records, setRecords }) {
   //   })
   // }
 
-  function onSubmit(e){
-    e.preventDefault()
+  function onSubmit(e) {
+    e.preventDefault();
     setRecords([...records, userDetails]);
     // checkValidation()
     setUserDetails({});
     handleClose();
-  };
-
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
     //key "": value, [key]
     // (value) ? null: <></>
     setUserDetails({ ...userDetails, [name]: value });
-    
+
     // userDetails
   }
 
@@ -72,7 +72,8 @@ function AddRecord({ show, setShow, records, setRecords }) {
                 placeholder="Steve"
                 onChange={(e) => handleChange(e)}
                 autoFocus
-              />{error["userFName"] && <p>{error["userFName"]}</p>}
+              />
+              {error["userFName"] && <p>{error["userFName"]}</p>}
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 type="text"

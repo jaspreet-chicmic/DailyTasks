@@ -8,29 +8,53 @@ import AddRecord from "./AddRecord";
 function TopBar() {
   const [show, setShow] = useState(false);
   const [records, setRecords] = useState([]);
-  const [loading,setLoading] = useState(()=>true);
-  const [searchedTerm,setSearchedTerm] = useState(()=>"");
-  const [selectedRecords,setSelectedRecords] = useState(()=>[]);
-  const [selectedRecordIds,setSelectedRecordIds] = useState(()=>[]);
+  const [loading, setLoading] = useState(() => true);
+  const [searchedTerm, setSearchedTerm] = useState(() => "");
+  const [selectedRecords, setSelectedRecords] = useState(() => []);
+  const [selectedRecordIds, setSelectedRecordIds] = useState(() => []);
+  const [selectState, setSelectState] = useState(() => []);
 
   const handleShow = () => {
     setSearchedTerm("");
     setShow(true);
-  }
-  const handleDelete = ()=>{
-    records?.map((record,idx)=>{
-      console.log(selectedRecordIds,records);
-      const shouldDelete = (selectedRecordIds?.some((id) => idx === id - 1));
-      
-      console.log("del",shouldDelete);
+  };
+  const handleDelete = () => {
+    console.log(selectedRecordIds);
 
-      shouldDelete && setRecords(records?.filter((recs,id)=> id !== idx));
-      console.log(selectedRecordIds,records);
-      setSelectedRecordIds([]);
-      // setRecords(records.filter((record,idx,recordsArr)=>recordsArr.some(rec =>)))
-      // (selectedRecords.some(id => id===idx) && setRecords(records.filter(record.)))
-    })
-  }
+    records.length &&
+      records?.map((record, idx) => {
+        console.log(selectedRecordIds, records);
+
+        const shouldDelete = selectedRecordIds?.some((id) => {
+          console.log("in should delete some", id, idx);
+          return idx === id - 1;
+        });
+
+        shouldDelete &&
+          setRecords(
+            records?.filter((recs, id) => {
+              console.log("in filter", id, idx);
+              return id !== idx;
+            })
+          );
+          setSelectState[]
+        console.log(selectedRecordIds, records);
+        setSelectedRecordIds([]);
+        // setRecords(records.filter((record,idx,recordsArr)=>recordsArr.some(rec =>)))
+        // (selectedRecords.some(id => id===idx) && setRecords(records.filter(record.)))
+      });
+  };
+  const listUsertable = {
+    records,
+    setRecords,
+    searchedTerm,
+    setSearchedTerm,
+    selectedRecordIds,
+    setSelectedRecordIds,
+    setSelectedRecords,
+    selectState,
+    setSelectState,
+  };
   return (
     <Container fluid>
       <div className="topBar">
@@ -46,7 +70,7 @@ function TopBar() {
             placeholder="Search"
             className="me-2"
             aria-label="Search"
-            onChange={(e)=>setSearchedTerm(e.target.value)}
+            onChange={(e) => setSearchedTerm(e.target.value)}
           />
         </Form>
       </div>
@@ -58,15 +82,9 @@ function TopBar() {
           setRecords={setRecords}
         />
       )}
-      
+
       {Object.entries(records).length ? (
-        <UserTable records={records} 
-          setRecords={setRecords} 
-          searchedTerm={searchedTerm} 
-          setSearchedTerm={setSearchedTerm} 
-          selectedRecordIds={selectedRecordIds} 
-          setSelectedRecordIds={setSelectedRecordIds} 
-          setSelectedRecords={setSelectedRecords}/>
+        <UserTable listUsertable={listUsertable} />
       ) : (
         <h3 className="mt-3">Please add Records</h3>
       )}

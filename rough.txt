@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 
-function UserTable({records, setRecords,searchedTerm,setSearchedTerm,selectedRecordIds,setSelectedRecordIds,setSelectedRecords}) {
+function UserTable({records, setRecords,searchedTerm,setSearchedTerm}) {
   const [filteredRecords,setFilteredRecords] = useState(()=>[]);
   const [loading,setLoading] = useState(()=>false);
   const [displayRecords,setDisplayRecords] = useState(()=>[]);
@@ -10,12 +10,11 @@ function UserTable({records, setRecords,searchedTerm,setSearchedTerm,selectedRec
 
   // const obj = records;
   // obj[0].userLName = "changed";
-  // console.log(records[0].userLName);
   
   useEffect(()=>{
     setDisplayRecords(records);
     console.log("mount")
-    // console.log
+    console.log()
   },[records])
 
   useEffect(()=>{
@@ -74,15 +73,11 @@ function UserTable({records, setRecords,searchedTerm,setSearchedTerm,selectedRec
               <Form.Check
               inline
               label={oneRecord.id}
-              name={oneRecord.id}
+              name={`group ${oneRecord.id}`}
               type="checkbox"
               id={`inline-checkbox-${oneRecord.id}`}
-              // checked={isChecked}
-              onChange={(e)=>{
-                // setIsChecked(!isChecked)
-                setSelectedRecordIds(()=>[...selectedRecordIds,oneRecord.id]);
-                console.log(selectedRecordIds)
-                }}
+              checked={isChecked}
+              onChange={setIsChecked(true)}
               />
             </td>
             <td>{oneRecord.userFName}</td>
@@ -96,7 +91,6 @@ function UserTable({records, setRecords,searchedTerm,setSearchedTerm,selectedRec
         })}
 
         </tbody>
-        {console.log(selectedRecordIds)}
       </Table>
       }
     </div>

@@ -6,7 +6,8 @@ import { Form, Modal, Button } from "react-bootstrap";
 
 function AddRecord({ show, setShow, records, setRecords }) {
   const tempObj = {
-    id: 1,
+    // id: (records.length && records.at(-1).id + 1) || 1,
+    id:,
     userFName: "",
     userLName: "",
     userHeroName: "",
@@ -104,6 +105,22 @@ function AddRecord({ show, setShow, records, setRecords }) {
                 onChange={(e) => handleChange(e)}
                 autoFocus
               />
+              {/* <div key={`inline-${type}`} className="mb-3"></div>
+                <Form.Check
+                  inline
+                  label="Female"
+                  name="female"
+                  type="radio"
+                  id={`inline-radio-1`}
+                />
+                <Form.Check
+                  inline
+                  label="Male"
+                  name="male"
+                  type="radio"
+                  id={`inline-radio-2`}
+                />
+                </div> */}
               <Form.Label>Age</Form.Label>
               <Form.Control
                 type="number"
@@ -120,7 +137,7 @@ function AddRecord({ show, setShow, records, setRecords }) {
             Close
           </Button>
           <Button variant="primary" onClick={onSubmit}>
-            Save Changes
+            Add Record
           </Button>
         </Modal.Footer>
       </Modal>

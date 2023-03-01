@@ -98,3 +98,22 @@ function UserTable({records, setRecords,searchedTerm,setSearchedTerm}) {
 }
 
 export default UserTable;
+
+
+const [selectState, setSelectState] = useState(() => []);
+ <Form.Check
+                      inline
+                      label={oneRecord.id}
+                      name={oneRecord.id}
+                      type="checkbox"
+                      id={`inline-checkbox-${oneRecord.id}`}
+                      checked={listUsertable.selectState[id]}
+                      onChange={(e) => {
+                        listUsertable.setSelectState(prevSelectState=>!prevSelectState[id]);
+                        // setIsChecked(!isChecked);
+                        listUsertable.setSelectedRecordIds(() => [
+                          ...listUsertable.selectedRecordIds,
+                          oneRecord.id,
+                        ]);
+                        console.log(listUsertable.selectedRecordIds);
+                      }}

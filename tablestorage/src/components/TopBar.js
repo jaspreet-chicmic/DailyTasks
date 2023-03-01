@@ -37,24 +37,12 @@ function TopBar() {
               return id !== idx;
             })
           );
-          setSelectState[]
         console.log(selectedRecordIds, records);
-        setSelectedRecordIds([]);
         // setRecords(records.filter((record,idx,recordsArr)=>recordsArr.some(rec =>)))
         // (selectedRecords.some(id => id===idx) && setRecords(records.filter(record.)))
       });
   };
-  const listUsertable = {
-    records,
-    setRecords,
-    searchedTerm,
-    setSearchedTerm,
-    selectedRecordIds,
-    setSelectedRecordIds,
-    setSelectedRecords,
-    selectState,
-    setSelectState,
-  };
+
   return (
     <Container fluid>
       <div className="topBar">
@@ -84,7 +72,15 @@ function TopBar() {
       )}
 
       {Object.entries(records).length ? (
-        <UserTable listUsertable={listUsertable} />
+        <UserTable records = {records}
+            setRecords = {setRecords}
+            searchedTerm = {searchedTerm}
+            setSearchedTerm = {setSearchedTerm}
+            selectedRecordIds = {selectedRecordIds}
+            setSelectedRecordIds = {setSelectedRecordIds}
+            setSelectedRecords = {setSelectedRecords}
+            selectState = {selectState}
+            setSelectState = {setSelectState} />
       ) : (
         <h3 className="mt-3">Please add Records</h3>
       )}

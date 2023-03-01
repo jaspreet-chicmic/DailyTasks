@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 
-function UserTable({ list }) {
+function UserTable({records,
+  setRecords,
+  searchedTerm,
+  setSearchedTerm,
+  selectedRecordIds,
+  setSelectedRecordIds,
+  setSelectedRecords,
+  selectState,
+  setSelectState}) {
   const [filteredRecords, setFilteredRecords] = useState(() => []);
   const [loading, setLoading] = useState(() => false);
   const [displayRecords, setDisplayRecords] = useState(() => []);
@@ -13,19 +21,19 @@ function UserTable({ list }) {
   // console.log(records[0].userLName);
 
   useEffect(() => {
-    setDisplayRecords(list.records);
+    setDisplayRecords(records);
     console.log("mount");
     // console.log
-  }, [list.records]);
+  }, [records]);
 
   useEffect(() => {
     let id = setTimeout(() => {
       //searched records
-      let filteredArr = list.records?.filter((record) => {
+      let filteredArr = records?.filter((record) => {
         let arrOfVals = Object.values(record).map((val) =>
           val.toString().toLowerCase()
         );
-        let lowerCaseSearch = list.searchedTerm.toLowerCase();
+        let lowerCaseSearch = searchedTerm.toLowerCase();
         return arrOfVals?.some((val) => val.includes(lowerCaseSearch));
       });
       console.log(filteredArr);
@@ -40,10 +48,10 @@ function UserTable({ list }) {
       clearTimeout(id);
     };
     // setLoading(false);
-  }, [list.searchedTerm]);
+  }, [searchedTerm]);
 
   useEffect(() => {
-    if (list.searchedTerm === "") setDisplayRecords(list.records);
+    if (searchedTerm === "") setDisplayRecords(records);
     else setDisplayRecords(filteredRecords);
   }, [filteredRecords]);
 
@@ -71,7 +79,7 @@ function UserTable({ list }) {
               }
               return (
                 <tr key={oneRecord.id}>
-                  {list.setSelectState(() => [...list.selectState, false])}
+                  {setSelectState((prevSelectState) => [...prevSelectState, false])}
                   <td>
                     <Form.Check
                       inline
@@ -79,15 +87,15 @@ function UserTable({ list }) {
                       name={oneRecord.id}
                       type="checkbox"
                       id={`inline-checkbox-${oneRecord.id}`}
-                      checked={list.selectState[id]}
+                      checked={selectState[id]}
                       onChange={(e) => {
-                        list.setSelectState[id](true);
+                        setSelectState(prevSelectState=>!prevSelectState[id]);
                         // setIsChecked(!isChecked);
-                        list.setSelectedRecordIds(() => [
-                          ...list.selectedRecordIds,
+                        setSelectedRecordIds(() => [
+                          ...selectedRecordIds,
                           oneRecord.id,
                         ]);
-                        console.log(list.selectedRecordIds);
+                        console.log(selectedRecordIds);
                       }}
                     />
                   </td>
@@ -101,7 +109,7 @@ function UserTable({ list }) {
               );
             })}
           </tbody>
-          {console.log(list.selectedRecordIds)}
+          {console.log(selectedRecordIds)}
         </Table>
       )}
     </div>

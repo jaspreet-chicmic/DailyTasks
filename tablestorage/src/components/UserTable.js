@@ -2,21 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 
-function UserTable({records, setRecords,searchedTerm,setSearchedTerm,selectedRecordIds,setSelectedRecordIds,setSelectedRecords}) {
+function UserTable({records, setRecords,searchedTerm,setSearchedTerm,selectedRecordIds,setSelectedRecordIds,setSelectedRecords,displayRecords,setDisplayRecords,checked,setChecked}) {
   const [filteredRecords,setFilteredRecords] = useState(()=>[]);
   const [loading,setLoading] = useState(()=>false);
-  const [displayRecords,setDisplayRecords] = useState(()=>[]);
-  const [isChecked,setIsChecked] = useState(()=>false);
-
-  // const obj = records;
-  // obj[0].userLName = "changed";
-  // console.log(records[0].userLName);
   
   useEffect(()=>{
-    setDisplayRecords(records);
-    console.log("mount")
-    // console.log
-  },[records])
+    
+  },[displayRecords])
 
   useEffect(()=>{
     let id = setTimeout(()=>{
@@ -29,7 +21,6 @@ function UserTable({records, setRecords,searchedTerm,setSearchedTerm,selectedRec
         console.log(filteredArr);
         setLoading(false);
         setFilteredRecords(filteredArr);
-        // (searchedTerm !== "") && setDisplayRecords(filteredArr)
       },500);
       console.log(filteredRecords);
     
@@ -57,7 +48,7 @@ function UserTable({records, setRecords,searchedTerm,setSearchedTerm,selectedRec
         <thead>
           <tr>
             <th>#</th>
-            <th>First Name</th>
+            <th onClick={()=>{sort}}>First Name</th>
             <th>Last Name</th>
             <th>Hero Name</th>
             <th>Email</th>
@@ -66,24 +57,54 @@ function UserTable({records, setRecords,searchedTerm,setSearchedTerm,selectedRec
           </tr>
         </thead>
         <tbody>
+        {console.log(displayRecords, "est")}
         {displayRecords?.map((oneRecord, id)=>{
           {/* oneRecord.id = id; */}
+          
           return (
             <tr key={oneRecord.id}>
+            {console.log("che :",oneRecord)}
             <td>
-              <Form.Check
+              <label>
+                <input
+                  name={oneRecord.id}
+                  type="checkbox"
+                  checked={selectedRecordIds.includes(oneRecord.id)}
+                  onChange={(e) => {
+                    // console.log(e.target.checked)
+                    if(e.target.checked)
+                      setSelectedRecordIds(()=>[...selectedRecordIds,oneRecord.id])
+                    else
+                      setSelectedRecordIds(()=>{
+                        return selectedRecordIds.filter(id => id !== oneRecord.id)
+                      })
+                    console.log(selectedRecordIds)
+                    // oneRecord.checked = e.target.checked;
+                    // let arr = displayRecords;
+                    // arr[oneRecord.id].checked = e.target.checked ;
+                    
+                    // setDisplayRecords(arr)
+                    // console.log(displayRecords)
+                    // setRecords(displayRecords);
+                  }}
+                />
+                {" "}{oneRecord.id}
+              </label>
+              {/* <Form.Check
               inline
               label={oneRecord.id}
               name={oneRecord.id}
               type="checkbox"
               id={`inline-checkbox-${oneRecord.id}`}
-              // checked={isChecked}
+              checked={()=>{setIsChecked(() => [...isChecked, false]);return isChecked[oneRecord.id]}}
               onChange={(e)=>{
-                // setIsChecked(!isChecked)
-                setSelectedRecordIds(()=>[...selectedRecordIds,oneRecord.id]);
-                console.log(selectedRecordIds)
+                setIsChecked(() => {console.log(isChecked);return !isChecked[oneRecord.id]});
+                let selected = isChecked[oneRecord.id]; 
+                selected && setSelectedRecordIds(()=>[...selectedRecordIds,oneRecord.id]);
+                !selected && setSelectedRecordIds((prevSelectedRecordIds)=>prevSelectedRecordIds.filter(elemId => elemId !== oneRecord.id));
+                console.log("selectedRecordIds ",selectedRecordIds,isChecked)
                 }}
-              />
+              /> */}
             </td>
             <td>{oneRecord.userFName}</td>
             <td>{oneRecord.userLName}</td>

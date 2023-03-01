@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Container, Row, Col, Modal } from "react-bootstrap";
@@ -12,24 +12,51 @@ function TopBar() {
   const [searchedTerm,setSearchedTerm] = useState(()=>"");
   const [selectedRecords,setSelectedRecords] = useState(()=>[]);
   const [selectedRecordIds,setSelectedRecordIds] = useState(()=>[]);
+  const [displayRecords,setDisplayRecords] = useState(()=>[]);
+  const [checked,setChecked] = useState(()=>[false]);
+  
+  useEffect(() => {
+    const listItems = JSON.parse(localStorage.getItem('records'));
+    if(listItems)
+    {
+      setRecords(listItems);
+      setDisplayRecords(listItems);
+    }
+    console.log("mount")
+  }, []);
+
+  useEffect(()=>{
+    setDisplayRecords(records);
+    localStorage.setItem('records', JSON.stringify(records));
+    console.log(displayRecords)
+  },[records])
 
   const handleShow = () => {
     setSearchedTerm("");
     setShow(true);
   }
   const handleDelete = ()=>{
-    records?.map((record,idx)=>{
-      console.log(selectedRecordIds,records);
-      const shouldDelete = (selectedRecordIds?.some((id) => idx === id - 1));
-      
-      console.log("del",shouldDelete);
 
-      shouldDelete && setRecords(records?.filter((recs,id)=> id !== idx));
-      console.log(selectedRecordIds,records);
-      setSelectedRecordIds([]);
-      // setRecords(records.filter((record,idx,recordsArr)=>recordsArr.some(rec =>)))
-      // (selectedRecords.some(id => id===idx) && setRecords(records.filter(record.)))
+    let newRecs = records?.filter((record)=>{
+      return !selectedRecordIds.includes(record.id);
     })
+
+    setRecords(newRecs);
+    setDisplayRecords(newRecs);
+    selectedRecordIds([]);
+    // records?.map((record,idx)=>{
+    //   console.log(selectedRecordIds,records);
+    //   const shouldDelete = (selectedRecordIds?.some((id) => idx === id));
+      
+    //   console.log("del",shouldDelete);
+
+    //   shouldDelete && setRecords(()=>records?.filter((recs,id)=> id !== idx));
+    //   console.log(selectedRecordIds,records);
+    //   shouldDelete && setSelectedRecordIds([]);
+
+    //   // setRecords(records.filter((record,idx,recordsArr)=>recordsArr.some(rec =>)))
+    //   // (selectedRecords.some(id => id===idx) && setRecords(records.filter(record.)))
+    // })
   }
   return (
     <Container fluid>
@@ -66,7 +93,12 @@ function TopBar() {
           setSearchedTerm={setSearchedTerm} 
           selectedRecordIds={selectedRecordIds} 
           setSelectedRecordIds={setSelectedRecordIds} 
-          setSelectedRecords={setSelectedRecords}/>
+          setSelectedRecords={setSelectedRecords}
+          displayRecords={displayRecords}
+          setDisplayRecords={setDisplayRecords}
+          checked={checked}
+          setChecked={setChecked}
+          />
       ) : (
         <h3 className="mt-3">Please add Records</h3>
       )}

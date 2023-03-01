@@ -6,14 +6,14 @@ import { Form, Modal, Button } from "react-bootstrap";
 
 function AddRecord({ show, setShow, records, setRecords }) {
   const tempObj = {
-    // id: (records.length && records.at(-1).id + 1) || 1,
-    id:,
+    id: (records.length && records.at(-1).id + 1) || 0,
     userFName: "",
     userLName: "",
     userHeroName: "",
     userEmail: "",
     userGender: "",
     userAge: 0,
+    checked:false
   };
   const [userDetails, setUserDetails] = useState(() => tempObj);
   const [errorBoolean, setErrorBoolean] = useState(false);
@@ -41,7 +41,6 @@ function AddRecord({ show, setShow, records, setRecords }) {
   function onSubmit(e){
     e.preventDefault()
     setRecords([...records, userDetails]);
-    // checkValidation()
     setUserDetails({});
     handleClose();
   };

@@ -8,46 +8,44 @@ import AddRecord from "./AddRecord";
 function TopBar() {
   const [show, setShow] = useState(false);
   const [records, setRecords] = useState([]);
-  const [loading,setLoading] = useState(()=>true);
-  const [searchedTerm,setSearchedTerm] = useState(()=>"");
-  const [selectedRecords,setSelectedRecords] = useState(()=>[]);
-  const [selectedRecordIds,setSelectedRecordIds] = useState(()=>[]);
-  const [displayRecords,setDisplayRecords] = useState(()=>[]);
-  const [checked,setChecked] = useState(()=>[false]);
-  
+  const [loading, setLoading] = useState(() => true);
+  const [searchedTerm, setSearchedTerm] = useState(() => "");
+  const [selectedRecords, setSelectedRecords] = useState(() => []);
+  const [selectedRecordIds, setSelectedRecordIds] = useState(() => []);
+  const [displayRecords, setDisplayRecords] = useState(() => []);
+  const [checked, setChecked] = useState(() => [false]);
+
   useEffect(() => {
-    const listItems = JSON.parse(localStorage.getItem('records'));
-    if(listItems)
-    {
+    const listItems = JSON.parse(localStorage.getItem("records"));
+    if (listItems) {
       setRecords(listItems);
       setDisplayRecords(listItems);
     }
-    console.log("mount")
+    console.log("mount");
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     setDisplayRecords(records);
-    localStorage.setItem('records', JSON.stringify(records));
-    console.log(displayRecords)
-  },[records])
+    localStorage.setItem("records", JSON.stringify(records));
+    console.log(displayRecords);
+  }, [records]);
 
   const handleShow = () => {
     setSearchedTerm("");
     setShow(true);
-  }
-  const handleDelete = ()=>{
-
-    let newRecs = records?.filter((record)=>{
+  };
+  const handleDelete = () => {
+    let newRecs = records?.filter((record) => {
       return !selectedRecordIds.includes(record.id);
-    })
+    });
 
     setRecords(newRecs);
     setDisplayRecords(newRecs);
-    selectedRecordIds([]);
+    setSelectedRecordIds([]);
     // records?.map((record,idx)=>{
     //   console.log(selectedRecordIds,records);
     //   const shouldDelete = (selectedRecordIds?.some((id) => idx === id));
-      
+
     //   console.log("del",shouldDelete);
 
     //   shouldDelete && setRecords(()=>records?.filter((recs,id)=> id !== idx));
@@ -57,7 +55,7 @@ function TopBar() {
     //   // setRecords(records.filter((record,idx,recordsArr)=>recordsArr.some(rec =>)))
     //   // (selectedRecords.some(id => id===idx) && setRecords(records.filter(record.)))
     // })
-  }
+  };
   return (
     <Container fluid>
       <div className="topBar">
@@ -73,7 +71,7 @@ function TopBar() {
             placeholder="Search"
             className="me-2"
             aria-label="Search"
-            onChange={(e)=>setSearchedTerm(e.target.value)}
+            onChange={(e) => setSearchedTerm(e.target.value)}
           />
         </Form>
       </div>
@@ -85,20 +83,21 @@ function TopBar() {
           setRecords={setRecords}
         />
       )}
-      
+
       {Object.entries(records).length ? (
-        <UserTable records={records} 
-          setRecords={setRecords} 
-          searchedTerm={searchedTerm} 
-          setSearchedTerm={setSearchedTerm} 
-          selectedRecordIds={selectedRecordIds} 
-          setSelectedRecordIds={setSelectedRecordIds} 
+        <UserTable
+          records={records}
+          setRecords={setRecords}
+          searchedTerm={searchedTerm}
+          setSearchedTerm={setSearchedTerm}
+          selectedRecordIds={selectedRecordIds}
+          setSelectedRecordIds={setSelectedRecordIds}
           setSelectedRecords={setSelectedRecords}
           displayRecords={displayRecords}
           setDisplayRecords={setDisplayRecords}
           checked={checked}
           setChecked={setChecked}
-          />
+        />
       ) : (
         <h3 className="mt-3">Please add Records</h3>
       )}

@@ -13,7 +13,6 @@ function AddRecord({ show, setShow, records, setRecords }) {
     userEmail: "",
     userGender: "",
     userAge: 0,
-    checked:false
   };
   const [userDetails, setUserDetails] = useState(() => tempObj);
   const [errorBoolean, setErrorBoolean] = useState(false);
@@ -23,9 +22,10 @@ function AddRecord({ show, setShow, records, setRecords }) {
     userHeroName: "",
     userEmail: "",
     userGender: "",
-    userAge: ""});
-  
-    const handleClose = () => setShow(false); //e.preventdefault to avoid refresh
+    userAge: "",
+  });
+
+  const handleClose = () => setShow(false); //e.preventdefault to avoid refresh
 
   //arrow over normal
   // const checkValidation = () => {
@@ -38,20 +38,19 @@ function AddRecord({ show, setShow, records, setRecords }) {
   //   })
   // }
 
-  function onSubmit(e){
-    e.preventDefault()
+  function onSubmit(e) {
+    e.preventDefault();
     setRecords([...records, userDetails]);
     setUserDetails({});
     handleClose();
-  };
-
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
     //key "": value, [key]
     // (value) ? null: <></>
     setUserDetails({ ...userDetails, [name]: value });
-    
+
     // userDetails
   }
 
@@ -71,7 +70,8 @@ function AddRecord({ show, setShow, records, setRecords }) {
                 placeholder="Steve"
                 onChange={(e) => handleChange(e)}
                 autoFocus
-              />{error["userFName"] && <p>{error["userFName"]}</p>}
+              />
+              {error["userFName"] && <p>{error["userFName"]}</p>}
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 type="text"

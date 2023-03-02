@@ -17,3 +17,7 @@ body {
   justify-content: flex-end;
   gap: 10px;
 }
+
+p {
+  color: red;
+}

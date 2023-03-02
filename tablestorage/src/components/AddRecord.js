@@ -59,7 +59,8 @@ function AddRecord({ show, setShow, records, setRecords }) {
     }
     if (!userDetails.userAge) {
       errors.userAge = "Age must be provided";
-    }
+    }else if(userDetails.userAge >= 200 || userDetails.userAge < 0)
+      errors.userAge = "Invalid!";
     return errors;
   };
 

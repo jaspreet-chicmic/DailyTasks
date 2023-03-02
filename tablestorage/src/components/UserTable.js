@@ -65,7 +65,7 @@ function UserTable({
               >
                 First Name
               </th>
-              <th>Last Name</th>
+              <th>Last Name </th>
               <th>Hero Name</th>
               <th>Email</th>
               <th>Gender</th>
@@ -147,3 +147,4 @@ function UserTable({
 }
 
 export default UserTable;
+{/* <button>O</button> */}

@@ -56,14 +56,10 @@ function AddRecord({ show, setShow, records, setRecords }) {
     }
     if (!userDetails.userGender) {
       errors.userGender = "Gender name must be provided";
-    }else if (userDetails.userGender !== "male" || userDetails.userGender !== "female") {
-      errors.userGender = "Not valid!";
-
+    }
     if (!userDetails.userAge) {
       errors.userAge = "Age must be provided";
-    }else if (userDetails.userAge >= 200 || userDetails.userAge <= 0) {
-      errors.userEmail = "Not valid!";
-
+    }
     return errors;
   };
 

@@ -19,12 +19,12 @@ function AddRecord({ show, setShow, records, setRecords }) {
   const [isSubmit, setIsSubmit] = useState(false);
   const [error, setError] = useState({});
 
-  useEffect(() => {
-    console.log(error);
-    if (Object.keys(error).length === 0 && isSubmit) {
-      console.log(userDetails);
-    }
-  }, [error]);
+  // useEffect(() => {
+  //   console.log(error);
+  //   if (Object.keys(error).length === 0 && isSubmit) {
+  //     console.log(userDetails);
+  //   }
+  // }, [error]);
 
   const handleClose = () => setShow(false); //e.preventdefault to avoid refresh
 
@@ -44,14 +44,14 @@ function AddRecord({ show, setShow, records, setRecords }) {
     } else if (!regexName.test(userDetails.userLName))
       errors.userLName = "Invalid!";
 
-    if (!userDetails.userHeroName) {
+    if (!userDetails.userHeroName)
       errors.userHeroName = "Hero Name must be provided";
-    } else if (!regexHero.test(userDetails.userHeroName))
-      errors.userHeroName = "Invalid!";
+    // } else if (!regexHero.test(userDetails.userHeroName))
+    //   errors.userHeroName = "Invalid!";
 
     if (!userDetails.userEmail) {
       errors.userEmail = "Email must be provided";
-    } else if (!regexEmail.test(userDetails.email)) {
+    } else if (!regexEmail.test(userDetails.userEmail)) {
       errors.userEmail = "This is not a valid email format!";
     }
     if (!userDetails.userGender) {
@@ -183,6 +183,5 @@ function AddRecord({ show, setShow, records, setRecords }) {
       </Modal>
     </>
   );
-}
-
+};
 export default AddRecord;

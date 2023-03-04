@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
-// import  from "react-bootstrap/Button";
-// import  from "react-bootstrap/Form";
-// state lifted up
 
 function AddRecord({ show, setShow, records, setRecords }) {
+  const DETAIL = {
+    FIRSTNAME: "userFName",
+    LASTNAME: "userLName",
+    HERONAME: "userHeroName",
+    EMAIL: "userEmail",
+    GENDER: "userGender",
+    AGE: "userAge",
+  };
   const tempObj = {
     id: (records.length && records.at(-1).id + 1) || 0,
     userFName: "",
@@ -14,26 +19,29 @@ function AddRecord({ show, setShow, records, setRecords }) {
     userGender: "",
     userAge: 0,
   };
+  console.log("in add records");
   const [userDetails, setUserDetails] = useState(() => tempObj);
   const [errorBoolean, setErrorBoolean] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [error, setError] = useState({});
 
-  // useEffect(() => {
-  //   console.log(error);
-  //   if (Object.keys(error).length === 0 && isSubmit) {
-  //     console.log(userDetails);
-  //   }
-  // }, [error]);
+  useEffect(() => {
+    console.log(error);
+    if (Object.keys(error).length === 0 && isSubmit) {
+      console.log(userDetails);
+    }
+  }, [error]);
 
   const handleClose = () => setShow(false); //e.preventdefault to avoid refresh
 
   //arrow over normal
   const checkValidation = (userDetails) => {
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    const regexName = /^[a-z ,.'-]+$/i;
-    const regexHero = /[^A-Za-z0-9]+/;
-    const errors = {};
+    const regexEmail =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regexName = new RegExp("^[A-Za-z][A-Za-z0-9_]{2,59}$");
+    const regexHero = new RegExp("^[A-Za-z][A-Za-z0-9_]{0,59}$");
+    let errors = {};
+
     if (!userDetails.userFName) {
       errors.userFName = "First name must be provided!";
     } else if (!regexName.test(userDetails.userFName))
@@ -44,10 +52,10 @@ function AddRecord({ show, setShow, records, setRecords }) {
     } else if (!regexName.test(userDetails.userLName))
       errors.userLName = "Invalid!";
 
-    if (!userDetails.userHeroName)
+    if (!userDetails.userHeroName) {
       errors.userHeroName = "Hero Name must be provided";
-    // } else if (!regexHero.test(userDetails.userHeroName))
-    //   errors.userHeroName = "Invalid!";
+    } else if (!regexHero.test(userDetails.userHeroName))
+      errors.userHeroName = "Invalid!";
 
     if (!userDetails.userEmail) {
       errors.userEmail = "Email must be provided";
@@ -56,23 +64,67 @@ function AddRecord({ show, setShow, records, setRecords }) {
     }
     if (!userDetails.userGender) {
       errors.userGender = "Gender name must be provided";
+    } else {
+      switch (userDetails.userGender) {
+        case "M":
+        case "m":
+        case "F":
+        case "f":
+          break;
+        default:
+          errors.userGender = "Gender must be : M (for Male) , F (for female)";
+          break;
+      }
     }
     if (!userDetails.userAge) {
       errors.userAge = "Age must be provided";
-    }else if(userDetails.userAge >= 200 || userDetails.userAge < 0)
+    } else if (userDetails.userAge >= 200 || userDetails.userAge < 0)
       errors.userAge = "Invalid!";
+
+    // for (let key in userDetails) {
+    //   //Object.keys(userDetails)[1].toString()
+    //   if (!userDetails[key]) {
+    //     errors[key] = `${key} must be provided`;
+    //   } else {
+    //     console.log("key :", key, typeof key);
+    //     switch (key) {
+    //       case DETAIL.FIRSTNAME:
+    //       case DETAIL.LASTNAME:
+    //         !regexName.test(userDetails[key]) &&
+    //           (errors[key] = `Invalid ${key}! `);
+    //         break;
+    //       case DETAIL.HERONAME:
+    //         !regexHero.test(userDetails[key]) &&
+    //           (errors[key] = `Invalid ${key}! `);
+    //         break;
+    //       case DETAIL.EMAIL:
+    //         !regexEmail.test(userDetails[key]) &&
+    //           (errors[key] = `Invalid ${key}! `);
+    //         break;
+    //       case DETAIL.AGE:
+    //         (userDetails.userAge >= 200 || userDetails.userAge < 0) &&
+    //           (errors[key] = `Invalid ${key}! `);
+    //         break;
+    //       default:
+    //         console.log("in default : ", errors);
+    //         errors = {};
+    //         break;
+    //     }
+    //   }
+    // }
     return errors;
   };
 
   function onSubmit(e) {
     e.preventDefault();
+    setError();
     const errs = checkValidation(userDetails);
     setError(errs);
     console.log("errs ", errs);
-    setIsSubmit(true);
     if (!Object.keys(errs).length) {
       setRecords([...records, userDetails]);
-      setUserDetails({});
+      setUserDetails(tempObj);
+      // setIsSubmit(true);
       handleClose();
     }
   }
@@ -183,5 +235,5 @@ function AddRecord({ show, setShow, records, setRecords }) {
       </Modal>
     </>
   );
-};
+}
 export default AddRecord;

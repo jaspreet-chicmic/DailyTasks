@@ -147,4 +147,6 @@ function UserTable({
 }
 
 export default UserTable;
-{/* <button>O</button> */}
+{
+  /* <button>O</button> */
+}

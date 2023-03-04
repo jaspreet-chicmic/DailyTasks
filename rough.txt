@@ -1,3 +1,34 @@
+
+removed code:
+// if (!userDetails.userFName) {
+    //   errors.userFName = "First name must be provided!";
+    // } else if (!regexName.test(userDetails.userFName))
+    //   errors.userFName = "Invalid!";
+
+    // if (!userDetails.userLName) {
+    //   errors.userLName = "Last name must be provided";
+    // } else if (!regexName.test(userDetails.userLName))
+    //   errors.userLName = "Invalid!";
+
+    // if (!userDetails.userHeroName) {
+    //   errors.userHeroName = "Hero Name must be provided";
+    // } else if (!regexHero.test(userDetails.userHeroName))
+    //   errors.userHeroName = "Invalid!";
+
+    // if (!userDetails.userEmail) {
+    //   errors.userEmail = "Email must be provided";
+    // } else if (!regexEmail.test(userDetails.userEmail)) {
+    //   errors.userEmail = "This is not a valid email format!";
+    // }
+    // if (!userDetails.userGender) {
+    //   errors.userGender = "Gender name must be provided";
+    // }
+    // if (!userDetails.userAge) {
+    //   errors.userAge = "Age must be provided";
+    // } else if (userDetails.userAge >= 200 || userDetails.userAge < 0)
+    //   errors.userAge = "Invalid!";
+    
+
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";

@@ -1,9 +1,9 @@
 {
-    "rules":{
-        "semi":"warn",
-        "eqeqeq":"warn"
-        // "indent": ["warn", 2]
-    }
+  "rules": {
+    "semi": "warn",
+    "eqeqeq": "warn"
+    // "indent": ["warn", 2]
+  }
 }
 
 // module.exports = {

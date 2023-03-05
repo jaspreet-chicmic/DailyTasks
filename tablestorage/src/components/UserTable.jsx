@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
+import TableHeader from "./TableHeader";
 
 function UserTable({
   records,
@@ -55,33 +56,11 @@ function UserTable({
       {loading && <p className="mt-40">loading...</p>}
       {!loading && (
         <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th
-                onClick={() => {
-                  sort;
-                }}
-              >
-                First Name
-              </th>
-              <th>Last Name </th>
-              <th>Hero Name</th>
-              <th>Email</th>
-              <th>Gender</th>
-              <th>Age</th>
-            </tr>
-          </thead>
+          <TableHeader />
           <tbody>
-            {console.log(displayRecords, "est")}
             {displayRecords?.map((oneRecord, id) => {
-              {
-                /* oneRecord.id = id; */
-              }
-
               return (
                 <tr key={oneRecord.id}>
-                  {console.log("che :", oneRecord)}
                   <td>
                     <label>
                       <input
@@ -89,7 +68,6 @@ function UserTable({
                         type="checkbox"
                         checked={selectedRecordIds.includes(oneRecord.id)}
                         onChange={(e) => {
-                          // console.log(e.target.checked)
                           if (e.target.checked)
                             setSelectedRecordIds(() => [
                               ...selectedRecordIds,
@@ -139,7 +117,6 @@ function UserTable({
               );
             })}
           </tbody>
-          {console.log(selectedRecordIds)}
         </Table>
       )}
     </div>

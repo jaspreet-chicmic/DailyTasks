@@ -65,6 +65,15 @@ function TopBar() {
         <Button expand="md" onClick={handleDelete} variant="outline-danger">
           Delete
         </Button>{" "}
+        <Button
+          expand="md"
+          onClick={() => {
+            setDisplayRecords(records);
+          }}
+          variant="outline-success"
+        >
+          Original Order
+        </Button>{" "}
         <Form expand="md" className="d-flex">
           <Form.Control
             type="search"

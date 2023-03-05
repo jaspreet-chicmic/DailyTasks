@@ -40,7 +40,7 @@ function AddRecord({ show, setShow, records, setRecords }) {
     const regexEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const regexName = new RegExp("^[A-Za-z][A-Za-z0-9_]{2,59}$");
-    const regexHero = new RegExp("^[A-Za-z][A-Za-z0-9_]{0,59}$");
+    const regexHero = /^[a-z\d\-_\s]+$/i;
     let errors = {};
 
     if (!userDetails.userFName) {

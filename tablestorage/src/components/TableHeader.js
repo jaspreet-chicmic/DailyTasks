@@ -8,19 +8,19 @@ function TableHeader({ displayRecords, setDisplayRecords }) {
     let sortedRecords = [];
     sortAccTo === DETAIL.AGE &&
       ascending &&
-      (sortedRecords = [...displayRecords].sort(
+      (sortedRecords = [...displayRecords]?.sort(
         (a, b) => a[DETAIL.AGE] - b[DETAIL.AGE]
       )); //ascending
 
     sortAccTo === DETAIL.AGE &&
       !ascending &&
-      (sortedRecords = [...displayRecords].sort(
+      (sortedRecords = [...displayRecords]?.sort(
         (a, b) => b[DETAIL.AGE] - a[DETAIL.AGE]
       )); //Descending
 
     sortAccTo !== DETAIL.AGE &&
       ascending &&
-      (sortedRecords = [...displayRecords].sort((a, b) => {
+      (sortedRecords = [...displayRecords]?.sort((a, b) => {
         const nameA = a[sortAccTo].toLowerCase(); // ignore upper and lowercase
         const nameB = b[sortAccTo].toLowerCase(); // ignore upper and lowercase
         return nameA < nameB ? -1 : 1;
@@ -28,7 +28,7 @@ function TableHeader({ displayRecords, setDisplayRecords }) {
 
     sortAccTo !== DETAIL.AGE &&
       !ascending &&
-      (sortedRecords = [...displayRecords].sort((a, b) => {
+      (sortedRecords = [...displayRecords]?.sort((a, b) => {
         const nameA = a[sortAccTo].toLowerCase(); // ignore upper and lowercase
         const nameB = b[sortAccTo].toLowerCase(); // ignore upper and lowercase
         return nameA < nameB ? 1 : -1;
@@ -36,6 +36,7 @@ function TableHeader({ displayRecords, setDisplayRecords }) {
 
     console.log("sortedRecords ", sortedRecords, sortAccTo);
     setDisplayRecords(sortedRecords);
+    // setRecords(sortedRecords);
   };
   return (
     <>

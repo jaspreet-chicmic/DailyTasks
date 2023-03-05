@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Form, Modal, Button } from "react-bootstrap";
+export const DETAIL = {
+  ID: "id",
+  FIRSTNAME: "userFName",
+  LASTNAME: "userLName",
+  HERONAME: "userHeroName",
+  EMAIL: "userEmail",
+  GENDER: "userGender",
+  AGE: "userAge",
+};
 
 function AddRecord({ show, setShow, records, setRecords }) {
-  const DETAIL = {
-    FIRSTNAME: "userFName",
-    LASTNAME: "userLName",
-    HERONAME: "userHeroName",
-    EMAIL: "userEmail",
-    GENDER: "userGender",
-    AGE: "userAge",
-  };
   const tempObj = {
     id: (records.length && records.at(-1).id + 1) || 0,
     userFName: "",

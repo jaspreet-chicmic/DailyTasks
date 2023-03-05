@@ -56,7 +56,10 @@ function UserTable({
       {loading && <p className="mt-40">loading...</p>}
       {!loading && (
         <Table striped bordered hover>
-          <TableHeader />
+          <TableHeader
+            displayRecords={displayRecords}
+            setDisplayRecords={setDisplayRecords}
+          />
           <tbody>
             {displayRecords?.map((oneRecord, id) => {
               return (

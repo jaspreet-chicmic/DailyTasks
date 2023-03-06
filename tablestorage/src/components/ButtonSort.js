@@ -1,15 +1,16 @@
 import React from "react";
-
+import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from "react-icons/bs";
 function ButtonSort({ sort, sortAccTo, ascending }) {
-  const btnTxt = ascending ? " A " : " D ";
   return (
-    <button
+    <>
+    <button className="btn btn-white" style={{margin:0,padding:0}}
       onClick={(e) => {
         sort(sortAccTo, ascending);
       }}
     >
-      {btnTxt}
+    {(ascending) ? <BsFillArrowUpCircleFill/> : <BsFillArrowDownCircleFill/>}
     </button>
+    </>
   );
 }
 

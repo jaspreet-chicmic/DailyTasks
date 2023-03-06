@@ -11,6 +11,8 @@ export const DETAIL = {
 };
 
 function AddRecord({ show, setShow, records, setRecords }) {
+  const [gender,setGender] = useState("");
+  const [check,setCheck] = useState(false);
   const tempObj = {
     id: (records.length && records.at(-1).id + 1) || 0,
     userFName: "",
@@ -64,7 +66,7 @@ function AddRecord({ show, setShow, records, setRecords }) {
       errors.userEmail = "This is not a valid email format!";
     }
     if (!userDetails.userGender) {
-      errors.userGender = "Gender name must be provided";
+      errors.userGender = "Gender must be provided";
     } else {
       switch (userDetails.userGender) {
         case "M":
@@ -188,31 +190,43 @@ function AddRecord({ show, setShow, records, setRecords }) {
                 autoFocus
               />
               <p>{error.userEmail}</p>
-              <Form.Label>Gender</Form.Label>
-              <Form.Control
+              <hr/>
+              <Form.Label>Gender</Form.Label><br/>
+              {/* <Form.Control
                 type="text"
                 name="userGender"
                 placeholder="M"
                 onChange={(e) => handleChange(e)}
                 autoFocus
-              />
-              <p>{error.userGender}</p>
+              /> */}
               {/* <div key={`inline-${type}`} className="mb-3"></div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
+                <label class="form-check-label" for="inlineRadio1">1</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
+                <label class="form-check-label" for="inlineRadio2">2</label>
+              </div> */}
                 <Form.Check
                   inline
                   label="Female"
-                  name="female"
+                  name={DETAIL.GENDER}
                   type="radio"
                   id={`inline-radio-1`}
+                  value='F'
+                  onChange={(e)=>handleChange(e)}
                 />
                 <Form.Check
                   inline
                   label="Male"
-                  name="male"
+                  name={DETAIL.GENDER}
                   type="radio"
                   id={`inline-radio-2`}
-                />
-                </div> */}
+                  value='M'
+                  onChange={(e)=>handleChange(e)}
+                /><hr/>
+              <p>{error.userGender}</p>
               <Form.Label>Age</Form.Label>
               <Form.Control
                 type="number"

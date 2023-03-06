@@ -49,7 +49,7 @@ function TableHeader({ displayRecords, setDisplayRecords }) {
               sort={sort}
               sortAccTo={DETAIL.FIRSTNAME}
               ascending={1}
-            />{" "}
+            />
             <ButtonSort
               sort={sort}
               sortAccTo={DETAIL.FIRSTNAME}

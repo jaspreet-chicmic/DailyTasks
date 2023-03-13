@@ -1,5 +1,6 @@
 import React from "react";
 import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from "react-icons/bs";
+//sort alternative
 function ButtonSort({ sort, sortAccTo, ascending }) {
   return (
     <>

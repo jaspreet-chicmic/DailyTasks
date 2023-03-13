@@ -58,6 +58,7 @@ function TopBar() {
   };
   return (
     <Container fluid>
+   
       <div className="topBar">
         <Button expand="md" onClick={handleShow} variant="outline-primary">
           Add Record
